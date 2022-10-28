@@ -1,12 +1,26 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from "axios";
 const SearchPage = () => {
 
+    const [listCar, setListCar] = useState();
     const [tipeCar, setTipeCar] = useState();
     const [tanggalRental, setTanggalRental] = useState();
 
+    const getAllDataCar = async () => {
+        const { data } = await axios("https://raw.githubusercontent.com/fnurhidayat/probable-garbanzo/main/data/cars.min.json");
+
+        setListCar(data);
+    }
+
     const searchCar = () => {
-        console.log("berhasil di click")
+        const resultSearch = listCar?.filter((car) => {
+            return car.type == tipeCar
+        })
+        setListCar(resultSearch);
     } 
+    useEffect(() => {
+        getAllDataCar();
+    }, [])
     return (
         <>
             <h1>Cari mobil</h1>
@@ -18,6 +32,16 @@ const SearchPage = () => {
             </select>
             <input type="date" id="tanggal" onChange={(event) => setTanggalRental(event.target.value)} />
             <button onClick={searchCar}>Search</button>
+            <br/>
+            {listCar?.map((car) => {
+                return (
+                    <div>
+                        <h1>{car.model}</h1>
+                        <p>{car.type}</p>
+                        <img src="" alt="" />
+                    </div>
+                )
+            })}
         </>
     )
 }
