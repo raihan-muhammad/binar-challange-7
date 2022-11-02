@@ -5,6 +5,7 @@ import Footer from "./../components/Footer";
 const LandingPage = () => {
     return (
         <>
+            <h1>Selamat Datang!</h1>
             <Nav/>
             <Hero/>
             <Content/>

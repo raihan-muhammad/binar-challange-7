@@ -20,7 +20,7 @@ const SearchPage = () => {
     } 
     useEffect(() => {
         getAllDataCar();
-    }, [])
+    }, [ ])
     return (
         <>
             <h1>Cari mobil</h1>
